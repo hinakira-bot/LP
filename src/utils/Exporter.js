@@ -85,8 +85,10 @@ const generateHTML = (data) => {
             </div>`;
         }
         else if (section.type === 'image') {
+            const width = section.width || 100;
+            const alignClass = section.align === 'center' ? 'mx-auto' : (section.align === 'right' ? 'ml-auto' : 'mr-auto');
             contentHtml = `
-            <div>
+            <div style="width: ${width}%;" class="${alignClass}">
                <img src="${section.url}" alt="${section.caption || ''}" class="w-full h-auto rounded-lg shadow-lg" />
                ${section.caption ? `<p class="text-xs text-center mt-4 opacity-60">${section.caption}</p>` : ''}
             </div>`;
@@ -117,13 +119,15 @@ const generateHTML = (data) => {
         }
         else if (section.type === 'video') {
             const youtubeId = getYouTubeId(section.url);
+            const width = section.width || 100;
+            const alignClass = section.align === 'center' ? 'mx-auto' : (section.align === 'right' ? 'ml-auto' : 'mr-auto');
             let videoTag = '';
             if (youtubeId) {
                 videoTag = `<div class="aspect-video w-full rounded-lg shadow-lg overflow-hidden bg-black" style="aspect-ratio: 16/9;"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allowfullscreen></iframe></div>`;
             } else {
                 videoTag = `<video src="${section.url}" autoplay loop muted playsinline class="w-full h-auto rounded-lg shadow-lg" style="aspect-ratio: 16/9;"></video>`;
             }
-            contentHtml = `<div>${videoTag}${section.caption ? `<p class="text-xs text-center mt-4 opacity-60">${section.caption}</p>` : ''}</div>`;
+            contentHtml = `<div style="width: ${width}%;" class="${alignClass}">${videoTag}${section.caption ? `<p class="text-xs text-center mt-4 opacity-60">${section.caption}</p>` : ''}</div>`;
         }
         else if (section.type === 'button') {
             const alignClass = section.align === 'center' ? 'text-center' : (section.align === 'right' ? 'text-right' : 'text-left');

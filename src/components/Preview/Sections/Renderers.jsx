@@ -79,12 +79,17 @@ export const TextRenderer = ({ section, fontSize }) => (
     </div>
 );
 
-export const ImageRenderer = ({ section }) => (
-    <div>
-        <img src={section.url} alt={section.caption || ''} className="w-full h-auto rounded-lg shadow-lg" />
-        {section.caption && <p className="text-xs text-center mt-4 opacity-60">{section.caption}</p>}
-    </div>
-);
+export const ImageRenderer = ({ section }) => {
+    const width = section.width || 100;
+    const alignClass = section.align === 'center' ? 'mx-auto' : (section.align === 'right' ? 'ml-auto' : 'mr-auto');
+
+    return (
+        <div style={{ width: `${width}%` }} className={alignClass}>
+            <img src={section.url} alt={section.caption || ''} className="w-full h-auto rounded-lg shadow-lg" />
+            {section.caption && <p className="text-xs text-center mt-4 opacity-60">{section.caption}</p>}
+        </div>
+    );
+};
 
 export const HeadingRenderer = ({ section, fontSize }) => {
     const alignClass = section.style === 'center' ? 'text-center' : (section.style === 'right' ? 'text-right' : 'text-left');
@@ -101,8 +106,11 @@ export const HeadingRenderer = ({ section, fontSize }) => {
 
 export const VideoRenderer = ({ section }) => {
     const youtubeId = getYouTubeId(section.url);
+    const width = section.width || 100;
+    const alignClass = section.align === 'center' ? 'mx-auto' : (section.align === 'right' ? 'ml-auto' : 'mr-auto');
+
     return (
-        <div>
+        <div style={{ width: `${width}%` }} className={alignClass}>
             {youtubeId ? (
                 <div className="aspect-video w-full rounded-lg shadow-lg overflow-hidden bg-black">
                     <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${youtubeId}`} title="YouTube video player" frameBorder="0" allowFullScreen></iframe>

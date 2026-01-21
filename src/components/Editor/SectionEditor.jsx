@@ -138,6 +138,23 @@ export const SectionEditor = ({ section, onChange }) => {
                 <>
                     <TextInput value={section.url} onChange={(val) => update('url', val)} placeholder="画像URL" />
                     <TextInput value={section.caption} onChange={(val) => update('caption', val)} placeholder="キャプション" />
+
+                    <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs text-gray-500 w-12">サイズ:</span>
+                        <Slider value={section.width || 100} min={20} max={100} step={5} onChange={(val) => update('width', val)} />
+                        <span className="text-xs text-gray-400 w-8 text-right">{section.width || 100}%</span>
+                    </div>
+
+                    <div className="flex justify-between items-center mt-2">
+                        <span className="text-xs text-gray-500">配置:</span>
+                        <div className="flex gap-1">
+                            {['left', 'center', 'right'].map(align => (
+                                <button key={align} onClick={() => update('align', align)} className={`p-1 rounded border transition-colors ${section.align === align ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-600 text-gray-400 hover:bg-gray-700'}`}>
+                                    {align === 'left' ? <AlignLeft size={14} /> : align === 'center' ? <AlignCenter size={14} /> : <AlignRight size={14} />}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </>
             )}
 
@@ -199,6 +216,23 @@ export const SectionEditor = ({ section, onChange }) => {
                 <>
                     <TextInput value={section.url} onChange={(val) => update('url', val)} placeholder="動画URL (YouTube/MP4)" />
                     <TextInput value={section.caption} onChange={(val) => update('caption', val)} placeholder="キャプション" />
+
+                    <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs text-gray-500 w-12">サイズ:</span>
+                        <Slider value={section.width || 100} min={20} max={100} step={5} onChange={(val) => update('width', val)} />
+                        <span className="text-xs text-gray-400 w-8 text-right">{section.width || 100}%</span>
+                    </div>
+
+                    <div className="flex justify-between items-center mt-2">
+                        <span className="text-xs text-gray-500">配置:</span>
+                        <div className="flex gap-1">
+                            {['left', 'center', 'right'].map(align => (
+                                <button key={align} onClick={() => update('align', align)} className={`p-1 rounded border transition-colors ${section.align === align ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-600 text-gray-400 hover:bg-gray-700'}`}>
+                                    {align === 'left' ? <AlignLeft size={14} /> : align === 'center' ? <AlignCenter size={14} /> : <AlignRight size={14} />}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </>
             )}
 
